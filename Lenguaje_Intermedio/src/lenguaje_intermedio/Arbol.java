@@ -74,7 +74,7 @@ public class Arbol{
                 expressionStack.push(new Shunting(c));
             }
 
-            else if (isOperator(c)){
+        else if (isOperator(c)){
 
                     while (opr.getOperatorPrecedence(myStack.getTopOfOperator(operatorStack)) >= opr.getOperatorPrecedence(c)) {
                         Character operator = operatorStack.pop();
@@ -86,7 +86,7 @@ public class Arbol{
 
                 operatorStack.push(c);
             }
-            else if (c==')'){
+        else if (c==')'){
 
                     while (myStack.getTopOfOperator(operatorStack) != '(') {
 

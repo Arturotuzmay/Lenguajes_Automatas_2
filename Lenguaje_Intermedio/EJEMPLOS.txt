@@ -1,0 +1,14 @@
+CASO 1:
+2 + 5 * Y
+
+CASO 2:
+A * A + B * B
+
+CASO 3:
+(A + 2) * 3 + B
+
+CASO 4:
+(A + 2) * (3 + B)
+
+CASO 5:
+(2 * Y + ((4 * Y ) + Z))
