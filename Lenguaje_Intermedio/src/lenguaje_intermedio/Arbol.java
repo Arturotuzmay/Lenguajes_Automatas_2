@@ -66,8 +66,11 @@ public class Arbol{
 
             c=inputString.charAt(i); // devuelve un caracter dentro del String por medio del parametro = i
             
-            
-            if (Character.isDigit(c) || Character.isLetter(c)){
+        if (c=='('){
+                operatorStack.push(c);
+            }
+
+        else if (Character.isDigit(c) || Character.isLetter(c)){
                 expressionStack.push(new Shunting(c));
             }
 
@@ -83,7 +86,19 @@ public class Arbol{
 
                 operatorStack.push(c);
             }
+            else if (c==')'){
 
+                    while (myStack.getTopOfOperator(operatorStack) != '(') {
+
+                        Character operator = operatorStack.pop();
+                        Shunting e2 = expressionStack.pop();
+                        Shunting e1 = expressionStack.pop();
+
+                        expressionStack.push(new Shunting(operator,e1,e2,"T"+index++));
+                    }
+
+                operatorStack.pop();
+            }
             
             else{
                 System.out.println("error error");
