@@ -13,6 +13,8 @@ public class Arbol{
     public Arbol(String valorexpresion) {
 
     		  if(String.valueOf(valorexpresion.charAt(valorexpresion.length()-1)).contains("+") ||
+                     String.valueOf(valorexpresion.charAt(valorexpresion.length()-1)).contains("-") ||
+    		     String.valueOf(valorexpresion.charAt(valorexpresion.length()-1)).contains("/") ||
     		     String.valueOf(valorexpresion.charAt(valorexpresion.length()-1)).contains("*") 
                           ){
     			  throw new NullPointerException("Error");
@@ -35,14 +37,14 @@ public class Arbol{
 		System.out.println("Ingrese la operacion: ");
                 System.out.print("X = ");
 		Scanner myObj = new Scanner(System.in);
-		String inputString = myObj.nextLine(); 
-        inputString=inputString.replaceAll(" ","");// quitar los empacios en blanco
-        Shunting parentNode=shunt(inputString);
+		String inputString = myObj.nextLine();//Se solicita la entrada por teclado 
+        inputString=inputString.replaceAll(" ","");// quitar los espacios en blanco
+        Shunting parentNode=shunt(inputString);//Se llama a la clase encargada de desglozar la operacion
         System.out.println("Codigo Intermedio Generado ------- Triplos---");
-        dfs(parentNode);
+        dfs(parentNode);//Se imprime toda la operacion desglosada en triplos
     }
 
-
+//Funcion que llama a la operacion desglozada para imprimir linea a linea
     public static void dfs(Shunting root){
         if (isOperator(root.charac)){
             dfs(root.operand1);
@@ -66,29 +68,29 @@ public class Arbol{
 
             c=inputString.charAt(i); // devuelve un caracter dentro del String por medio del parametro = i
             
-        if (c=='('){
+        if (c=='('){//Determina los parentesis dentro de la operacion y la guarda
                 operatorStack.push(c);
             }
 
-        else if (Character.isDigit(c) || Character.isLetter(c)){
+        else if (Character.isDigit(c) || Character.isLetter(c)){//Hace una determinacion sobre los numeros y letras
                 expressionStack.push(new Shunting(c));
             }
 
-        else if (isOperator(c)){
+        else if (isOperator(c)){//Espacio que se dedica en relacion a los signos de operacion utilizados
 
                     while (opr.getOperatorPrecedence(myStack.getTopOfOperator(operatorStack)) >= opr.getOperatorPrecedence(c)) {
                         Character operator = operatorStack.pop();
                         Shunting e2 = expressionStack.pop();
                         Shunting e1 = expressionStack.pop();
                         
-                        expressionStack.push(new Shunting(operator,e1,e2,"T"+index++));
+                        expressionStack.push(new Shunting(operator,e1,e2,"T"+index++));//Una vez determinado todo lo anterior guarda la operacion 
                     }
 
                 operatorStack.push(c);
             }
-        else if (c==')'){
+        else if (c==')'){//Determina el final del parentesis
 
-                    while (myStack.getTopOfOperator(operatorStack) != '(') {
+                    while (myStack.getTopOfOperator(operatorStack) != '(') {//Abre un ciclo cuando se detecta la apertura del parentesis 
 
                         Character operator = operatorStack.pop();
                         Shunting e2 = expressionStack.pop();
@@ -101,11 +103,11 @@ public class Arbol{
             }
             
             else{
-                System.out.println("error error");
+                System.out.println("error error");//En dado caso que la operacion o signos no coicidan con ninguna de las condiciones dadas
             }
         }
 
-        while(!operatorStack.empty()){
+        while(!operatorStack.empty()){//Ignorando la opcion de los parentesis en caso de no existir
             Character operator=operatorStack.pop();
             Shunting e2=expressionStack.pop();
             Shunting e1=expressionStack.pop();
@@ -116,8 +118,8 @@ public class Arbol{
         return expressionStack.pop();
     }
 
-    public static boolean isOperator(Character c){
-        if (c=='+' || c=='/'|| c=='*'){
+    public static boolean isOperator(Character c){//Operadores estipulados
+        if (c=='+' || c=='/'|| c=='*'|| c=='-'){
             return true;
         }
         else{

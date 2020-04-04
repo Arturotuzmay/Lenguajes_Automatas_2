@@ -3,7 +3,7 @@ import java.beans.Expression;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-
+//Clase que llama la entrada del teclado y desglosa los operadores y variables
 public class Shunting {
     Shunting operand1;
     Shunting operand2;
